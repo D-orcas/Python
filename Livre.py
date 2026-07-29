@@ -38,20 +38,12 @@ class Bibliotheque:
     def nombre_total_livres(self):
         return len(self.livres)   
     def livres_longs(self):
-        liste = []
-        for ajout in self.livres :
-            if(ajout.est_long()):
-                liste.append(ajout.resume())
-        return liste 
+        return [ajout.resume() for  ajout in self.livres if(ajout.est_long())]
     def afficher_tous(self):
         for i in self.livres:
             print(i.resume(), "\n")
     def livres_numeriques(self):
-        lister = []
-        for i in self.livres:
-            if (isinstance(i,LivreNumerique)):
-                lister.append(i.resume())
-        return lister
+        return [i.resum() for i in self.livres if isinstance(i, LivreNumerique)]
     def sauvegarder(self, nom_fichier) :
         with open(nom_fichier, "w") as fichier :
             for i in self.livres :
