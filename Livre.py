@@ -3,20 +3,28 @@ class Livre:
     def __init__(self,titre,auteur,nombre_page):
         self.titre = titre
         self.auteur = auteur
-        self.nombre_page = nombre_page
+        self._nombre_page = nombre_page
+    @property
+    def nombre_page (self):
+        return self._nombre_page
+    @nombre_page.setter
+    def nombre_page (self, nombre):
+        if (nombre <= 0):
+            raise ValueError("Le nombre de pages doit être positive")
+        self.nombre_page = nombre 
 
     def resume(self):
         return f"Livre '{self.titre}' par {self.auteur} ({self.nombre_page} pages)"
-
+    @property
     def est_long(self):
         if (self.nombre_page > 300):
             return True
         else :
             return False
-    def modifier_pages(self, nouveau_nombre):
+    """def modifier_pages(self, nouveau_nombre):
         if (nouveau_nombre <= 0):
             raise ValueError("Le nouveau nombre de page doit être strictement supérieur à 0")
-        self.nombre_page = nouveau_nombre
+        self.nombre_page = nouveau_nombre"""
         
 
 
@@ -38,12 +46,12 @@ class Bibliotheque:
     def nombre_total_livres(self):
         return len(self.livres)   
     def livres_longs(self):
-        return [ajout.resume() for  ajout in self.livres if(ajout.est_long())]
+        return [ajout.resume() for  ajout in self.livres if(ajout.est_long)]
     def afficher_tous(self):
         for i in self.livres:
             print(i.resume(), "\n")
     def livres_numeriques(self):
-        return [i.resum() for i in self.livres if isinstance(i, LivreNumerique)]
+        return [i.resume() for i in self.livres if isinstance(i, LivreNumerique)]
     def sauvegarder(self, nom_fichier) :
         with open(nom_fichier, "w") as fichier :
             for i in self.livres :
@@ -53,21 +61,23 @@ class Bibliotheque:
         with open (nom_fichier, "r") as fichier :
             for i in fichier :
                 print(i.strip())
+    def titres(self):
+        return [i.titre for i in self.livres]
 #je teste les livres classiques
-"""try :
+try :
     livre7 = Livre("Dorcas", "Dory", 709)  
-    print(livre7.est_long())
-    livre7.modifier_pages(-145) 
+    print(livre7.est_long)
+    livre7.nombre_page = -145 
     print(livre7.resume())
 except ValueError as e:
     print("Erreur", e)
 try :
     livre8  = Livre("Flammess", "Maeva", 209)
-    print(livre8.est_long())
-    livre8.modifier_pages(400) 
+    print(livre8.est_long)
+    livre8.nombre_page = 400
     print(livre8.resume()) 
 except ValueError as e:
-    print("Erreur ", e)"""
+    print("Erreur ", e)
 #je teste la bibliothèque
 livre3 =Livre("Je ne suis pas coupable", "Agatha Christie", 198)
 livre4 = Livre("Le train bleu", "Agatha Christie", 207)
@@ -85,7 +95,7 @@ biblio.afficher_tous()
 biblio.sauvegarder("Gentille.txt")
 biblio.charger_resumes("Gentille.txt")
 
-"""#test livre numérique
+#test livre numérique
 livre_num = LivreNumerique("bom","Joachim", 567, 34)
 print(livre_num.resume())
   #test de fin  
@@ -104,4 +114,4 @@ print("Livre total " ,bib.nombre_total_livres())
 print( "Les livres longs : ",bib.livres_longs())
 bib.afficher_tous()
 print("Les livresnumériques sont :",bib.livres_numeriques())
-"""
+
