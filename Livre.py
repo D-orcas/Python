@@ -11,7 +11,7 @@ class Livre:
     def nombre_page (self, nombre):
         if (nombre <= 0):
             raise ValueError("Le nombre de pages doit être positive")
-        self.nombre_page = nombre 
+        self._nombre_page = nombre 
 
     def resume(self):
         return f"Livre '{self.titre}' par {self.auteur} ({self.nombre_page} pages)"
