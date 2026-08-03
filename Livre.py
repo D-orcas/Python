@@ -55,7 +55,7 @@ class Bibliotheque:
     def sauvegarder(self, nom_fichier) :
         with open(nom_fichier, "w") as fichier :
             for i in self.livres :
-                fichier.write(i.resume()+"\n")
+                 fichier.write(i.resume()+"\n")
                 # ici on fait un + car write( prend un seul argument)
     def charger_resumes(self, nom_fichier) :
         with open (nom_fichier, "r") as fichier :
