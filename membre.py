@@ -9,5 +9,5 @@ class Membre :
     def livre_empruntes (self, livre) :
         self.livre_emprunte.append(livre)#Ajoute des livres à la liste des livres empruntés
     @property
-    def liste_livre_emprunte(self):#La liste de titres des livres empruntés pour que la liste soit bien lisible
+    def liste_livre_emprunte(self):#La liste des livres empruntés pour que la liste soit bien lisible
         return [i for i in self.livre_emprunte]  

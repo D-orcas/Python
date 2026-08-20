@@ -1,7 +1,7 @@
 import random
 from livreNumerique import LivreNumerique
-from membre import Membre
-from livres import Livre
+#from membre import Membre
+#from livres import Livre
 class Bibliotheque :
     def __init__ (self) :
         self.livres = []
@@ -10,9 +10,10 @@ class Bibliotheque :
     def ajouter_membre(self, membre):
         self.liste_membres.append(membre)
         #Qui ajoutes de nouveau memebres à la liste des membres
-    def liste_abonne (self) :
-        return [i.info_membre() for i in self.liste_membres ]
-    #retourne la liste des membres
+    def livres_emprunte_parmembre(self, identifiant) :
+        for i in self.liste_membres :
+            if (i.identifiant == identifiant) :
+                return i.liste_livre_emprunte
     def liste_id (self ) :
         return [i.identifiant for i in self.liste_membres ]
     #retourne la liste de ids
@@ -36,13 +37,12 @@ class Bibliotheque :
         for i in self.livres_en_cours :
             if (i.titre == titre.lower()) :
                 return i #Ici je me demande comment cela marcherai si le livre n'est pas dispo il retourne un null ou nono ou quoi ?
-    """@property
     def rechercher_livre(self , titre):
         # Elle recherche un livre dans la bibliothèque et en même temps dans dans les livres empruntés
         for i in self.livres :
             if( i.titre == titre.lower())  :
                 print ("le livre ", titre.capitalize() , " est disponible")
-                est_disponible = True
+                
                 break
         else :
             self.recherche_dans_emprunt(titre)
@@ -50,7 +50,7 @@ class Bibliotheque :
         livre = self.titre_a_livre(titre)
         if livre in self.livres_en_cours :
             print(f"Le livre : {titre.capitalize()} a été emprunté") 
-            est_disponible = False
+            
         else :
             print(f"Le livre {titre.capitalize()} est indisponible")
     def nombre_total_livres (self):
@@ -63,7 +63,8 @@ class Bibliotheque :
             if (i.titre == titre.lower() ):
                 self.livres.remove(i)
             else :
-                print("Le livre ", titre.capitalize(), " est introuvable")"""
+                print("Le livre ", titre.capitalize(), " est introuvable")
+    #cette méthode elle retourne un valeur c'est pareil que rechercher_livre juste avec retout différent
     def recherche_livre(self ,titre) :
         for i in self.livres :
             if( i.titre == titre.lower())  :

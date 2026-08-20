@@ -1,15 +1,14 @@
-from livres import Livre
-from livreNumerique import LivreNumerique
 from bibliotheques import Bibliotheque
 from membre import Membre
 import random
 #Avant de bien tester je crée pleins de membres pour verifier bien
 #je fais un menu si la personne veut emprunter retourner ou verifier si un livre est dispo une sorte de menu quoi
-#ou si elle veut voir la liste de ses emprunts ounsi elle veut voir les livres de la bibliothèque 
+#ou si elle veut voir la liste de ses emprunts ou si elle veut voir les livres de la bibliothèque 
 #Je vais écrire alors des fonctions pour cela comme inscription et autres
-
+#"Persistance : sauvegarde et rechargement de l'état (quels livres sont empruntés par qui) dans un fichier."
 bibliotheque = Bibliotheque()
 identifiant = 0
+
 
 
 def inscription () :
@@ -65,6 +64,8 @@ def emprunter_livre ():
             for i in bibliotheque.liste_membres :
                 if (i.idetifiant  == identifiant) :
                     i.livre_empruntes(livre)
+                    with open ("Bibliotheque.txt" , "w") as f :
+                        f.write(livre + " Emprunté par "+ i.nom.capitalize() )
                     print("Livre ajouté à votre liste d'emprunt")
                     continuer = input ("Voulez vous un autre livre ? O/ N")
                     if (continuer == "O" or continuer == "o") :
@@ -108,7 +109,8 @@ def recherche_id():
     input("Quel est votre nom :")
     print("Vous allez nous donner le titre du premier livre et du dernier livre que vous avez emprunté ici ")
     premier = input("Le titre du premier livre  :")
-    dernier = input("Le titre du dernier livre")
+    dernier = input("Le titre du dernier livre")#je fais un liste des retours des fonction et je mets les retours dans une liste avec 2 nombres
+    #si on a 1 au debut et 1 à la fin c'est valdé sinon on donne pas l'id
 #le main du programme
 print("Bienvenue dans la bibliothèque LECTURE POUR TOUS")
 while True :
@@ -117,7 +119,7 @@ while True :
     print("2 pour emprunter un livre")
     print("3 pour rechercher un livre dans la bibliothèque")
     print("4 pour voir votre liste de livres empruntés")
-    print("5 pour voir votre identifiant si vous l'avez oublié")
+    #print("5 pour voir votre identifiant si vous l'avez oublié")
     print("6 pour savoir plus sur la bibliothèque")
     print("7 pour sortir")
     a_faire = input("Faites votre saisie :")
@@ -125,6 +127,7 @@ while True :
         inscription()
         continue
     elif(a_faire == 2):
+        saisir_id()
         emprunter_livre()
         continue
     elif(a_faire == 3):
@@ -134,47 +137,14 @@ while True :
         liste_emprunte()
         continue
     elif (a_faire == 5) :
+        print("Qu'est ce que bibliothèque 'LECTURE POUR TOUS' ?\n La bibliothèque LECTURE POUR TOUS est une initiative privée qui a pour but de satisfaire les personnes curieuses assoifées de nouvelles connaissances de sensation forte.")
+        print("Elle est également là pour vous aider à vous évader dans un monde où vos soucis ne sont que des lointains souvenir ne ce serait ce que pour queleques heures avant de revenir à la réalité.")
+        print("Ici nous vous proposons de divers types de livres allant ds romans d'enquêtes criminels à des sciences fictions sans oublier les romans comiques rien n'est oublie tout pour vous satisfaire.")
+        print("Comment la bibliothèque marche-t-elle ?")
+        print("Ici vous allez le droit d'emprunter des livres mais avant cela vous devez être memebre c'est à dire un abonné et alors vous utilserait votre id pour vous connecter lors d'un emprunt")
+        break
     elif (a_faire == 7):
+        remerciemment()
         break
 
-    #print("Qu'est ce que bibliothèque 'LECTURE POUR TOUS' ?\n La bibliothèque LECTURE POUR TOUS est une initiative privée qui a pour but de satisfaire les personnes curieuses assoifées de nouvelles connaissances de sensation forte.")
-    #print("Elle est également là pour vous aider à vous évader dans un monde où vos soucis ne sont que des lointains souvenir ne ce serait ce que pour queleques heures avant de revenir à la réalité")
-    #On fait l'insciprtion ou la saisie de l'id
-    while True :
-        car = input("Etes vous un membre de la bibliothèque ? O/N : ")
-        if (car == "O" or car == "o") :
-            saisir_id()
-            break
-        elif(car == "N" or car == "n") :
-            inscription()
-            break
-    #On passe à l'emprunt des livres
-    emprunter_livre()
-#Test des méthodes
-"""l_1 = Livre ("Manigance" ,"Marie-louise", 1890,123)
-l_2 = LivreNumerique("La petite paulette", "Jean", 290,35,198)
-l_3 = LivreNumerique("Les enfants perdus", 'Anette' , 467, 34,12)
-try :
-   l_4 = Livre("Le buisson","Paul", 19,78)
-except ValueError as v :
-     print(v)
-l_5 = Livre("Luissante","Marc", 345, 19)
-bibliotheque = Bibliotheque()   
-liste = [l_1, l_2,l_3,l_4,l_5]
-for i in liste :
-    bibliotheque.ajouter_livre(i)
-i = 1
-while (i <= 2) :
-    title = input("Le nom du livre : ")
-    bibliotheque.ajouter_livre_en_cours(title)
-    #je vais verifier si le tire de ce livre n'existe pas dans la bibliothèque
-    i += 1
-#je teste les methodes recher_livre() ajoouter_ivre_en_cours() , ajoute_retourne et livre_encours
-titre = input("Veuillez bien saisir le titre du livre que vous voulez emprunter :")
-bibliotheque.rechercher_livre(titre)
-#bibliotheque.recherche_dans_emprunt(titre.lower())
-bibliotheque.afficher_tout()
-bibliotheque.ajoute_retourne(titre)
-print(bibliotheque.livre_encours())"""
-
-        
+    
