@@ -1,7 +1,7 @@
 from bibliotheques import Bibliotheque
 from membre import Membre
 import random
-#Avant de bien tester je crée pleins de membres pour verifier bien
+
 #je fais un menu si la personne veut emprunter retourner ou verifier si un livre est dispo une sorte de menu quoi
 #ou si elle veut voir la liste de ses emprunts ou si elle veut voir les livres de la bibliothèque 
 #Je vais écrire alors des fonctions pour cela comme inscription et autres
@@ -9,11 +9,10 @@ import random
 bibliotheque = Bibliotheque()
 identifiant = 0
 
-
-
 def inscription () :
     global identifiant
     nom = input("Cher nouveau membre veuillez saisir votre nom :")
+    #après le nom on génère un id
     id_genere = random.randrange(1,9999)
     if id_genere not  in bibliotheque.liste_id() :
         identifiant = id_genere
@@ -125,17 +124,13 @@ while True :
     a_faire = input("Faites votre saisie :")
     if (a_faire == 1):
         inscription()
-        continue
     elif(a_faire == 2):
         saisir_id()
         emprunter_livre()
-        continue
     elif(a_faire == 3):
         recherche_dans_bibliothque()
-        continue
     elif(a_faire == 4) :
         liste_emprunte()
-        continue
     elif (a_faire == 5) :
         print("Qu'est ce que bibliothèque 'LECTURE POUR TOUS' ?\n La bibliothèque LECTURE POUR TOUS est une initiative privée qui a pour but de satisfaire les personnes curieuses assoifées de nouvelles connaissances de sensation forte.")
         print("Elle est également là pour vous aider à vous évader dans un monde où vos soucis ne sont que des lointains souvenir ne ce serait ce que pour queleques heures avant de revenir à la réalité.")
