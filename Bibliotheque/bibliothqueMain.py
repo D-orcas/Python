@@ -1,5 +1,7 @@
 from bibliotheques import Bibliotheque
 from membre import Membre
+from livreNumerique import LivreNumerique
+from livres import Livre
 import random
 
 #je fais un menu si la personne veut emprunter retourner ou verifier si un livre est dispo une sorte de menu quoi
@@ -23,7 +25,7 @@ def inscription () :
 def ressaisir_id():
     try :
         print("****Numéro incorrect! Est-ce une erreur ?*****")
-        print("**********Saisssez 1 pour réessayer **********")
+        print("**********Saissez 1 pour réessayer **********")
         print("2 pour vous inscrire si vous n'êtes pas abonné")
         print("******Tout autre chiffre pour quitter*********")
         choix = int (input("Votre choix : "))
@@ -96,7 +98,7 @@ def emprunter_livre ():
 
 def recherche_dans_bibliothque():
     titre = input("Saisir le titre du livre que vous recherchez :")
-    bibliotheque.recherhcer_livre(titre)
+    bibliotheque.rechercher_livre(titre)
 #je vais compléter la fonction recher dans b...
 def remerciemment () :
     print("Merci d'être passé à la bibliothèque LECTURE POUR TOUS! A la prochaine")
@@ -112,34 +114,76 @@ def recherche_id():
     #si on a 1 au debut et 1 à la fin c'est valdé sinon on donne pas l'id
 #le main du programme
 print("Bienvenue dans la bibliothèque LECTURE POUR TOUS")
-while True :
-    print("Entrer :")
-    print("1 pour vous inscrire si vous n'êtes pas un membre  \nNB: Notez bien votre identifiant il vous servivra lors des prochaines connexins")
-    print("2 pour emprunter un livre")
-    print("3 pour rechercher un livre dans la bibliothèque")
-    print("4 pour voir votre liste de livres empruntés")
-    #print("5 pour voir votre identifiant si vous l'avez oublié")
-    print("6 pour savoir plus sur la bibliothèque")
-    print("7 pour sortir")
-    a_faire = input("Faites votre saisie :")
-    if (a_faire == 1):
-        inscription()
-    elif(a_faire == 2):
-        saisir_id()
-        emprunter_livre()
-    elif(a_faire == 3):
-        recherche_dans_bibliothque()
-    elif(a_faire == 4) :
-        liste_emprunte()
-    elif (a_faire == 5) :
-        print("Qu'est ce que bibliothèque 'LECTURE POUR TOUS' ?\n La bibliothèque LECTURE POUR TOUS est une initiative privée qui a pour but de satisfaire les personnes curieuses assoifées de nouvelles connaissances de sensation forte.")
-        print("Elle est également là pour vous aider à vous évader dans un monde où vos soucis ne sont que des lointains souvenir ne ce serait ce que pour queleques heures avant de revenir à la réalité.")
-        print("Ici nous vous proposons de divers types de livres allant ds romans d'enquêtes criminels à des sciences fictions sans oublier les romans comiques rien n'est oublie tout pour vous satisfaire.")
-        print("Comment la bibliothèque marche-t-elle ?")
-        print("Ici vous allez le droit d'emprunter des livres mais avant cela vous devez être memebre c'est à dire un abonné et alors vous utilserait votre id pour vous connecter lors d'un emprunt")
-        break
-    elif (a_faire == 7):
-        remerciemment()
-        break
+l_1 = Livre ("Manigance" ,"Marie-louise", 1890,123)
+l_2 = LivreNumerique("La petite paulette", "Jean", 290,35,198)
+l_3 = LivreNumerique("Les enfants perdus", 'Anette' , 467, 34,12)
+try :
+   l_4 = Livre("Le buisson","Paul", 19,78)
+except ValueError as v :
+     print(v)
+l_5 = Livre("Luissante","Marc", 345, 19)
 
-    
+liste = [l_1, l_2,l_3,l_4,l_5]
+for i in liste :
+    bibliotheque.ajouter_livre(i)
+
+
+#title = input("Le nom du livre : ")
+#bibliotheque.ajouter_livre_en_cours(title)
+    #je vais verifier si le tire de ce livre n'existe pas dans la bibliothèque
+   
+#je teste les methodes recher_livre() ajoouter_ivre_en_cours() , ajoute_retourne et livre_encours
+#titre = input("Veuillez bien saisir le titre du livre que vous voulez emprunter :")
+"""bibliotheque.rechercher_livre(titre)
+#bibliotheque.recherche_dans_emprunt(titre.lower())
+bibliotheque.afficher_tout()
+bibliotheque.ajoute_retourne(titre)
+print(bibliotheque.livre_encours())"""
+try :
+    while True :
+        print("Entrer :")
+        print("1 pour vous inscrire si vous n'êtes pas un membre  \nNB: Notez bien votre identifiant il vous servira lors des prochaines connexins")
+        print("2 pour emprunter un livre")
+        print("3 pour rechercher un livre dans la bibliothèque")
+        print("4 pour voir votre liste de livres empruntés")
+        #print("5 pour voir votre identifiant si vous l'avez oublié")
+        print("5 pour savoir plus sur la bibliothèque")
+        print("6 pour sortir")
+        a_faire = int(input("Faites votre saisie :"))
+        if (a_faire == 1): #test validé
+            inscription()
+            sasie = int(input("Voulez vous continue ? saisissez 1 sinon un autre chiffre "))
+            if sasie == 1 :
+                continue
+            else  :
+                break
+        elif(a_faire == 2):
+            try :
+                #Aussi je dois faire une liste de membre pour pouvoir tester
+                # saisir_id()#Lorsque la personne dit qu'elle veut 
+                #quitter cela ne quitte pas tout donc faire en sorte que quitter sort de programme pas que cela reviennes sur emprunter_livre()
+                #Le problème est : lorsque la saisie est éronnée le programme demande la saisie du titre du livre or cela doit commencer de nouveau
+                #Donc chercher une solution aussi
+                emprunter_livre()
+                continue
+            except ValueError as v :
+                print("Erreur de saisie ", v)
+        elif(a_faire == 3):
+            recherche_dans_bibliothque()
+            #Demander ensuite s'ils veulent continuer ou pas non ? e serait plus commode non 
+        elif(a_faire == 4) :
+            liste_emprunte()
+        elif (a_faire == 5) :#validé
+            print("Qu'est ce que bibliothèque 'LECTURE POUR TOUS' ?\n La bibliothèque LECTURE POUR TOUS est une initiative privée qui a pour but de satisfaire les personnes curieuses assoifées de nouvelles connaissances de sensation forte.")
+            print("Elle est également là pour vous aider à vous évader dans un monde où vos soucis ne sont que des lointains souvenir ne ce serait ce que pour queleques heures avant de revenir à la réalité.")
+            print("Ici nous vous proposons de divers types de livres allant ds romans d'enquêtes criminels à des sciences fictions sans oublier les romans comiques rien n'est oublie tout pour vous satisfaire.")
+            print("Comment la bibliothèque marche-t-elle ?")
+            print("Ici vous allez le droit d'emprunter des livres mais avant cela vous devez être memebre c'est à dire un abonné et alors vous utilserait votre id pour vous connecter lors d'un emprunt")
+            break
+        elif (a_faire == 6):#valid"
+            remerciemment()
+            break
+        else :
+            print ("Saisie eronnéé")    
+except ValueError as V :    
+    print("Erreur de saisie ", V)
