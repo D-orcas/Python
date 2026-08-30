@@ -23,12 +23,9 @@ class Bibliotheque :
     def livre_encours(self) :
         #Pas très important pour l'instant je verrais si je vais le ssupprimer
         return [i.resume() for i in self.livres_en_cours] 
-    def ajouter_livre_en_cours(self ,titre) :#cherchons isbn
-        for i in self.livres :# Je vais mettre dans la liste du membre aussi mais ce serait dans le main ou comment
-            #je sais c'est dans le main car icic c'est la bibliothèque
+    def ajouter_livre_en_cours(self ,titre) :# ici on ajoute aux livres qui sont empruntés et on supprime de la bibliothèque
+        for i in self.livres :
             if (i.titre == titre.lower()):
-                
-        #cette méthode prend un livre cherche son isbn dans la liste des livresde la bibliothèque
         #prends ce livre et le supprime de la liste des livres de la bibliothèque mais avan il l'ajoute à la liste de lesvres en cours ou empruntés
                 self.livres_en_cours.append(i) # Pour faciliter et si on lui donait juste le titre du livre ? ce serait facile
                 self.livres.remove(i)
@@ -42,11 +39,10 @@ class Bibliotheque :
         for i in self.livres :
             if( i.titre == titre.lower())  :
                 print ("le livre ", titre.capitalize() , " est disponible")
-                
                 break
         else :
-            self.recherche_dans_emprunt(titre)
-    def recherche_dans_emprunt(self , titre) :
+            self.rechercher_dans_emprunt(titre)
+    def rechercher_dans_emprunt(self , titre) :
         livre = self.titre_a_livre(titre)
         if livre in self.livres_en_cours :
             print(f"Le livre : {titre.capitalize()} a été emprunté") 

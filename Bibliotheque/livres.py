@@ -1,10 +1,9 @@
 from datetime import date
 class Livre :
-    def __init__(self,titre,auteur,nombre_page, isbn):
+    def __init__(self,titre,auteur,nombre_page):
         self.titre = titre.lower()
         self.auteur = auteur.lower()
         self._nombre_page = nombre_page
-        self.isbn = isbn
         self.date_ajout = date.today()
     @property
     def nombre_page (self) :
