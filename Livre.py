@@ -1,3 +1,4 @@
+import unittest
 class Livre:
     
     def __init__(self,titre,auteur,nombre_page):
@@ -63,8 +64,14 @@ class Bibliotheque:
                 print(i.strip())
     def titres(self):
         return [i.titre for i in self.livres]
+
+class test_bibliotheque(unittest.TestCase)    :
+    def test_nombre_titre(self):
+        self.assertIn("Dorcas", self.titres())
+
+
 #je teste les livres classiques
-try :
+"""try :
     livre7 = Livre("Dorcas", "Dory", 709)  
     print(livre7.est_long)
     livre7.nombre_page = -145 
@@ -77,7 +84,7 @@ try :
     livre8.nombre_page = 400
     print(livre8.resume()) 
 except ValueError as e:
-    print("Erreur ", e)
+    print("Erreur ", e)"""
 #je teste la bibliothèque
 livre3 =Livre("Je ne suis pas coupable", "Agatha Christie", 198)
 livre4 = Livre("Le train bleu", "Agatha Christie", 207)
@@ -89,15 +96,15 @@ lit = [livre, livre2, livre3, livre4, livre5, livre6]
 biblio = Bibliotheque()
 for i in lit :
     biblio.ajouter_livre(i)
-print(biblio.nombre_total_livres())
+"""print(biblio.nombre_total_livres())
 print(biblio.livres_longs())
 biblio.afficher_tous()
 biblio.sauvegarder("Gentille.txt")
-biblio.charger_resumes("Gentille.txt")
+biblio.charger_resumes("Gentille.txt")"""
 
 #test livre numérique
-livre_num = LivreNumerique("bom","Joachim", 567, 34)
-print(livre_num.resume())
+"""livre_num = LivreNumerique("bom","Joachim", 567, 34)
+print(livre_num.resume())"""
   #test de fin  
 livre10 = LivreNumerique("C'est ma vie", "Jane", 197, 12)
 livre11 = LivreNumerique ("Wow beau","Claude AI", 290,45)
@@ -110,8 +117,8 @@ bib = Bibliotheque()
 listee = [livre10, livre11,livre12, livre13, livre14]
 for i in listee :
     bib.ajouter_livre(i)
-print("Livre total " ,bib.nombre_total_livres())
+"""print("Livre total " ,bib.nombre_total_livres())
 print( "Les livres longs : ",bib.livres_longs())
 bib.afficher_tous()
-print("Les livresnumériques sont :",bib.livres_numeriques())
+print("Les livresnumériques sont :",bib.livres_numeriques())"""
 
